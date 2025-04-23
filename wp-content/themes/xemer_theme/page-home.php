@@ -23,7 +23,7 @@ $featured_categories = get_field('featured_categories', $page_id);
 $car_banner = get_field('car_banner', $page_id);
 $slide_brand = get_field('slide_brand', $page_id);
 $section_banner_list_starts2 = get_field('single_banner_2', $page_id);
-
+$recent_activities = get_field('recent_activities', $page_id);
 ?>
 
 
@@ -256,24 +256,35 @@ if (!empty($section_banner_list_starts) && is_array($section_banner_list_starts)
     </section>
     <!-- Shop Ends -->
 
+<?php if ( ! empty( $car_banner ) && is_array( $car_banner ) ) : ?>
     <!-- banner list starts -->
     <section class="banner_area">
         <div class="container">
             <div class="single_banner">
                 <div class="row display-flex">
                     <div class="col-md-6 col-xs-12">
-                        <a href="<?php echo esc_url($car_banner['button']['url']); ?>">
-                            <img src="<?php echo wp_get_attachment_url($car_banner['image']); ?>" alt="image">
-                        </a>
+                        <?php if ( ! empty( $car_banner['button']['url'] ) && ! empty( $car_banner['image'] ) ) : ?>
+                            <a href="<?php echo esc_url( $car_banner['button']['url'] ); ?>">
+                                <img src="<?php echo esc_url( wp_get_attachment_url( $car_banner['image'] ) ); ?>" alt="image">
+                            </a>
+                        <?php endif; ?>
                     </div>
                     <div class="col-md-6 col-xs-12">
                         <div class="banner_text1">
-                            <h4><?php echo esc_html($car_banner['label']); ?></h4>
-                            <h2><?php echo esc_html($car_banner['title']); ?></h2>
-                            <p><?php echo esc_html($car_banner['description']); ?></p>
-                            <a href="<?php echo esc_url($car_banner['button']['url']); ?>" class="biz-btn-black">
-                                <?php echo esc_html($car_banner['button']['title']); ?>
-                            </a>
+                            <?php if ( ! empty( $car_banner['label'] ) ) : ?>
+                                <h4><?php echo esc_html( $car_banner['label'] ); ?></h4>
+                            <?php endif; ?>
+                            <?php if ( ! empty( $car_banner['title'] ) ) : ?>
+                                <h2><?php echo esc_html( $car_banner['title'] ); ?></h2>
+                            <?php endif; ?>
+                            <?php if ( ! empty( $car_banner['description'] ) ) : ?>
+                                <p><?php echo esc_html( $car_banner['description'] ); ?></p>
+                            <?php endif; ?>
+                            <?php if ( ! empty( $car_banner['button']['url'] ) && ! empty( $car_banner['button']['title'] ) ) : ?>
+                                <a href="<?php echo esc_url( $car_banner['button']['url'] ); ?>" class="biz-btn-black">
+                                    <?php echo esc_html( $car_banner['button']['title'] ); ?>
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -281,25 +292,31 @@ if (!empty($section_banner_list_starts) && is_array($section_banner_list_starts)
         </div>
     </section>
     <!-- banner list Ends -->
+<?php endif; ?>
 
 
+
+<?php if ( ! empty( $slide_brand ) && is_array( $slide_brand ) ) : ?>
     <!-- partners starts -->
     <section class="partners bg-grey">
         <div class="container">
             <div class="dest-partner">
                 <div class="section-title">
-                    <h2 class="mar-0"><?php echo esc_html($slide_brand['title']); ?></h2>
+                    <?php if ( ! empty( $slide_brand['title'] ) ) : ?>
+                        <h2 class="mar-0"><?php echo esc_html( $slide_brand['title'] ); ?></h2>
+                    <?php endif; ?>
                 </div>
                 <div class="row partner-slider-slick">
                     <?php
-                    // Lặp qua danh sách brand ID
-                    if (!empty($slide_brand['list_brand'])) {
-                        foreach ($slide_brand['list_brand'] as $brand_id) {
-                            $brand_image_url = wp_get_attachment_url($brand_id);
-                            if ($brand_image_url) {
-                                echo '<div class="col-md-2">';
-                                echo '<img src="' . esc_url($brand_image_url) . '" alt="partners">';
-                                echo '</div>';
+                    if ( ! empty( $slide_brand['list_brand'] ) && is_array( $slide_brand['list_brand'] ) ) {
+                        foreach ( $slide_brand['list_brand'] as $brand_id ) {
+                            $brand_image_url = wp_get_attachment_url( $brand_id );
+                            if ( $brand_image_url ) {
+                                ?>
+                                <div class="col-md-2">
+                                    <img src="<?php echo esc_url( $brand_image_url ); ?>" alt="partners">
+                                </div>
+                                <?php
                             }
                         }
                     }
@@ -309,71 +326,65 @@ if (!empty($section_banner_list_starts) && is_array($section_banner_list_starts)
         </div>
     </section>
     <!-- partners ends -->
+<?php endif; ?>
 
 
+<?php if ( ! empty( $recent_activities ) && is_array( $recent_activities ) ) : ?>
     <!-- blog starts -->
     <section class="blog">
         <div class="container">
             <div class="section-title">
-                <h2>Recent <span>Activities</span></h2>
-                <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+                <?php if ( ! empty( $recent_activities['title'] ) ) : ?>
+                    <h2><?php echo esc_html( $recent_activities['title'] ); ?></h2>
+                <?php endif; ?>
+                <?php if ( ! empty( $recent_activities['description'] ) ) : ?>
+                    <p><?php echo esc_html( $recent_activities['description'] ); ?></p>
+                <?php endif; ?>
             </div>
             <div class="blog-main">
                 <div class="row">
+                    <?php
+                    $args = array(
+                        'post_type'      => 'post',
+                        'posts_per_page' => 3,
+                        'post_status'    => 'publish'
+                    );
 
-                    <div class="col-md-4 col-sm-12 col-xs-12">
-                        <div class="grid">
-                            <div class="grid-item">
-                                <div class="grid-image">
-                                    <img src="images/trending8.jpg" alt="blog">
-                                    <div class="overlay"></div>
-                                </div>
-                                <div class="gridblog-content">
-                                    <div class="date mar-bottom-15"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
-                                    <h3><a href="blog-single.html">Raising say express had chiefly detract</a></h3>
-                                    <p class="mar-0"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum Nam finibus consectetur adipiscing elit.</p>
+                    $query = new WP_Query($args);
+
+                    if ($query->have_posts()) :
+                        while ($query->have_posts()) : $query->the_post();
+                            $image_url = get_the_post_thumbnail_url(get_the_ID(), 'medium'); // hoặc 'full' nếu bạn muốn kích thước lớn hơn
+                            $date = get_the_date('M d, Y'); // Ví dụ: Apr 23, 2025
+                            ?>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="grid">
+                                    <div class="grid-item">
+                                        <div class="grid-image">
+                                            <?php if ($image_url): ?>
+                                                <img src="<?php echo esc_url($image_url); ?>" alt="<?php the_title_attribute(); ?>">
+                                            <?php endif; ?>
+                                            <div class="overlay"></div>
+                                        </div>
+                                        <div class="gridblog-content">
+                                            <div class="date mar-bottom-15"><i class="flaticon flaticon-calendar"></i> <?php echo esc_html($date); ?></div>
+                                            <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                                            <p class="mar-0"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="grid">
-                            <div class="grid-item">
-                                <div class="grid-image">
-                                    <img src="images/car3.jpg" alt="blog">
-                                    <div class="overlay"></div>
-                                </div>
-                                <div class="gridblog-content">
-                                    <div class="date mar-bottom-15"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
-                                    <h3><a href="blog-single.html">Raising say express had chiefly detract</a></h3>
-                                    <p class="mar-0"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum Nam finibus consectetur adipiscing elit.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="grid">
-                            <div class="grid-item">
-                                <div class="grid-image">
-                                    <img src="images/trending4.jpg" alt="blog">
-                                    <div class="overlay"></div>
-                                </div>
-                                <div class="gridblog-content">
-                                    <div class="date mar-bottom-15"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
-                                    <h3><a href="blog-single.html">Raising say express had chiefly detract</a></h3>
-                                    <p class="mar-0"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum Nam finibus consectetur adipiscing elit.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                        <?php
+                        endwhile;
+                        wp_reset_postdata();
+                    endif;
+                    ?>
                 </div>
             </div>
         </div>
     </section>
     <!-- blog Ends -->
+<?php endif; ?>
 
 <?php
 if (!empty($section_banner_list_starts2) && is_array($section_banner_list_starts2)) :

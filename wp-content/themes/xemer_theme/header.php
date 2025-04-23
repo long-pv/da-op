@@ -23,7 +23,12 @@
 </head>
 
 <body <?php body_class(); ?>>
-	<?php wp_body_open(); ?>
+	<?php wp_body_open();
+
+    $setting_header = get_field('setting_header', 'option');
+    $header_top = isset($setting_header['header_top']) ? $setting_header['header_top'] : '';
+    $social_links = isset($setting_header['social_links']) ? $setting_header['social_links'] : '';
+	?>
 
 
 	<!-- header starts -->
@@ -31,28 +36,51 @@
 		<div class="header-content">
 			<div class="container">
 				<div class="links links-left">
-					<ul>
-						<li><a href="#"><i class="fa fa-phone-alt"></i> (000)999-898-888</a></li>
-						<li><a href="#"><i class="fa fa-envelope-open"></i> info@Nepayatri.com</a></li>
-						<li>
-							<select>
-								<option>EUR</option>
-								<option>FRA</option>
-								<option>ESP</option>
-							</select>
-						</li>
-					</ul>
+                    <?php if (!empty($header_top) && is_array($header_top)): ?>
+                        <ul>
+                            <?php foreach ($header_top as $item): ?>
+                                <?php
+                                $icon = !empty($item['icon_class']) ? $item['icon_class'] : '';
+                                $text = !empty($item['text']) ? $item['text'] : '';
+                                $link = !empty($item['link']) ? $item['link'] : '#';
+                                ?>
+                                <?php if ($text): ?>
+                                    <li>
+                                        <a href="<?php echo esc_url($link); ?>">
+                                            <?php if ($icon): ?>
+                                                <i class="<?php echo esc_attr($icon); ?>"></i>
+                                            <?php endif; ?>
+                                            <?php echo esc_html($text); ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+
 				</div>
 				<div class="links links-right pull-right">
 					<ul>
 						<li>
-							<ul class="social-links">
-								<li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-							</ul>
-						</li>
+                            <?php if (!empty($social_links) && is_array($social_links)): ?>
+                                <ul class="social-links">
+                                    <?php foreach ($social_links as $item): ?>
+                                        <?php
+                                        $icon = !empty($item['icon_class']) ? $item['icon_class'] : '';
+                                        $link = !empty($item['link']) ? $item['link'] : '#';
+                                        ?>
+                                        <?php if ($icon): ?>
+                                            <li>
+                                                <a href="<?php echo esc_url($link); ?>" target="_blank" rel="noopener noreferrer">
+                                                    <i class="<?php echo esc_attr($icon); ?>" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+
+                        </li>
 						<li><a href="#" data-toggle="modal" data-target="#login"><i class="fa fa-sign-in-alt"></i> Login</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#register"><i class="fa fa-sign-out-alt"></i> Register</a></li>
 						<li>
