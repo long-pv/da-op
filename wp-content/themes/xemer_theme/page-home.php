@@ -15,1007 +15,409 @@
  */
 
 get_header();
+$page_id = get_the_ID();
+$section_banner = get_field('slide', $page_id);
+$section_banner_list_starts = get_field('single_banner', $page_id);
+$special_offer = get_field('special_offer', $page_id);
+$featured_categories = get_field('featured_categories', $page_id);
+$car_banner = get_field('car_banner', $page_id);
+$slide_brand = get_field('slide_brand', $page_id);
+$section_banner_list_starts2 = get_field('single_banner_2', $page_id);
+
 ?>
 
-<!-- banner starts -->
-<section class="banner">
-    <div class="slider">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="slide-inner">
-                        <div class="slide-image" style="background-image:url('<?php echo get_template_directory_uri(); ?>/assets/images/slider/slider1.jpg')"></div>
-                        <div class="swiper-content">
-                            <h1>Make you Free to <span>travel</span> with us</h1>
-                            <p class="mar-bottom-20">Foresee the pain and trouble that are bound to ensue and equal fail in their duty through weakness. </p>
-                            <a href="" class="biz-btn">Explore More</a>
-                            <a href="" class="biz-btn mar-left-10">Contact Us</a>
-                        </div>
-                        <div class="overlay"></div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="slide-inner">
-                        <div class="slide-image" style="background-image:url('<?php echo get_template_directory_uri(); ?>/assets/images/slider/slider7.jpg')"></div>
-                        <div class="swiper-content">
-                            <h1><span>Sensation Ice Trip</span> Is Coming For Kids</h1>
-                            <p class="mar-bottom-20">Find awesome hotel, tour, car and activities in London, Foresee the pain and trouble</p>
-                            <a href="" class="biz-btn">Find More</a>
-                        </div>
-                        <div class="overlay"></div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="slide-inner">
-                        <div class="slide-image" style="background-image:url('<?php echo get_template_directory_uri(); ?>/assets/images/slider/slider3.jpg')"></div>
-                        <div class="swiper-content">
-                            <h1>Your <span>Adventure</span> Wonderful Travel Calls Fast</h1>
-                            <p class="mar-bottom-20">Find awesome hotel, tour, car and activities in London to ensue and equal fail in their duty</p>
-                            <a href="" class="biz-btn">View More</a>
-                        </div>
-                        <div class="overlay"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- Add Arrows -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
 
-    </div>
-</section>
-<!-- banner ends -->
-
-<!-- form starts -->
-<section class="banner-form">
-    <div class="container">
-        <div class="row display-flex">
-            <div class="col-md-7 col-sm-12">
-                <div class="why-us-about">
-                    <div class="why-about-inner">
-                        <h3 class="mar-bottom-5 themecolor">About NepaYatri</h3>
-                        <h2 class="bold">We're truely dedicated to make your travel experience as much as simple and fun as possible</h2>
-                        <p class="mar-0">Aliquam erat volutpat. Curabitur tempor nibh quis arcu convallis, sed viverra quam sollicitudin. Proin sed augue sed neque ultricies condimentum. In ac ultrices lectus.<br> Nullam ex elit, vestibulum ut urna non, tincidunt condimentum sem. Sed enim tortor, accumsan at consequat et, tempus sit ame</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5 col-sm-12">
-                <div class="form-content">
-                    <div class="tab-content">
-                        <div id="travel" class="tab-pane in active">
-                            <div class="row filter-box filter-box1">
-                                <h3 class="form-title text-center">Find a Places</h3>
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Your Destination</label>
-                                        <div class="input-box">
-                                            <i class="flaticon-placeholder"></i>
-                                            <select class="niceSelect">
-                                                <option value="1">Where are you going?</option>
-                                                <option value="2">Argentina</option>
-                                                <option value="3">Belgium</option>
-                                                <option value="4">Canada</option>
-                                                <option value="5">Denmark</option>
-                                            </select>
-                                        </div>
-                                    </div>
+<?php
+$section_banner = get_field('slide', get_the_ID());
+if (!empty($section_banner) && is_array($section_banner)) :
+    ?>
+    <!-- banner starts -->
+    <section class="banner">
+        <div class="slider">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <?php foreach ($section_banner as $slide):
+                        $image_url = !empty($slide['image']) ? wp_get_attachment_image_url($slide['image'], 'full') : '';
+                        $title = !empty($slide['title']) ? $slide['title'] : '';
+                        $sub_title = !empty($slide['sub_title']) ? $slide['sub_title'] : '';
+                        $button = !empty($slide['button']) && is_array($slide['button']) ? $slide['button'] : [];
+                        ?>
+                        <div class="swiper-slide">
+                            <div class="slide-inner">
+                                <?php if ($image_url): ?>
+                                    <div class="slide-image" style="background-image:url('<?php echo esc_url($image_url); ?>')"></div>
+                                <?php endif; ?>
+                                <div class="swiper-content">
+                                    <?php if ($title): ?>
+                                        <h1 class="mar-0"><?php echo esc_html($title); ?></h1>
+                                    <?php endif; ?>
+                                    <?php if ($sub_title): ?>
+                                        <p class="mar-bottom-30"><?php echo esc_html($sub_title); ?></p>
+                                    <?php endif; ?>
+                                    <?php if (!empty($button['title']) && !empty($button['url'])): ?>
+                                        <a href="<?php echo esc_url($button['url']); ?>" target="<?php echo esc_attr($button['target'] ?? '_self'); ?>" class="biz-btn">
+                                            <?php echo esc_html($button['title']); ?>
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Check In</label>
-                                        <div class="input-box">
-                                            <i class="flaticon-calendar"></i>
-                                            <input id="date-range0" type="text" placeholder="yyyy-mm-dd">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Check Out</label>
-                                        <div class="input-box">
-                                            <i class="flaticon-calendar"></i>
-                                            <input id="date-range1" type="text" placeholder="yyyy-mm-dd">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Adult</label>
-                                        <div class="input-box">
-                                            <i class="flaticon-add-user"></i>
-                                            <select class="niceSelect">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Children</label>
-                                        <div class="input-box">
-                                            <i class="flaticon-add-user"></i>
-                                            <select class="niceSelect">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-                                    <div class="form-group mar-top-5 mar-bottom-0 text-center">
-                                        <a href="#" class="biz-btn biz-btn1"><i class="fa fa-search"></i> Find Now</a>
-                                    </div>
-                                </div>
+                                <div class="overlay"></div>
                             </div>
                         </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
+    </section>
+    <!-- banner ends -->
+<?php endif; ?>
 
-    </div>
-</section>
-<!-- form ends -->
 
-<!-- why us starts -->
-<section class="why-us pad-top-0">
-    <div class="container">
-        <div class="section-title">
-            <h2>Why Choose Us</h2>
-            <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-        </div>
-        <div class="why-us-box">
+<?php
+if (!empty($section_banner_list_starts) && is_array($section_banner_list_starts)) :
+    ?>
+    <!-- banner list starts -->
+    <section class="banner_area pad-bottom-0">
+        <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="why-us-item text-center">
-                        <div class="why-us-icon">
-                            <i class="flaticon-price"></i>
-                        </div>
-                        <div class="why-us-content">
-                            <h3><a href="#">Competetive Pricing</a></h3>
-                            <p class="mar-0">With 500+ suppliers and the purchasing power of 300 million members</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="why-us-item text-center">
-                        <div class="why-us-icon">
-                            <i class="flaticon-quality"></i>
-                        </div>
-                        <div class="why-us-content">
-                            <h3><a href="#">Award Winning Service</a></h3>
-                            <p class="mar-0">Fabulous Travel worry free knowing that we're here if you need us, 24 hours a day</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="why-us-item text-center">
-                        <div class="why-us-icon">
-                            <i class="flaticon-global"></i>
-                        </div>
-                        <div class="why-us-content">
-                            <h3><a href="#">Worldwide Coverage</a></h3>
-                            <p class="mar-0">1,200,000 hotels in more than 200 countries and regions & flights to over 5,000 citites.</p>
+                <?php foreach ($section_banner_list_starts as $item):
+                    $image_url = !empty($item['image']) ? wp_get_attachment_image_url($item['image'], 'full') : '';
+                    $lable = !empty($item['lable']) ? $item['lable'] : '';
+                    $title = !empty($item['title']) ? $item['title'] : '';
+                    $button = !empty($item['button']) && is_array($item['button']) ? $item['button'] : [];
+                    ?>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="single_banner">
+                            <div class="banner_thumb">
+                                <?php if ($image_url): ?>
+                                    <a href="<?php echo esc_url($button['url'] ?? '#'); ?>">
+                                        <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                                    </a>
+                                <?php endif; ?>
+                                <div class="banner_text">
+                                    <?php if ($lable): ?>
+                                        <h4><?php echo esc_html($lable); ?></h4>
+                                    <?php endif; ?>
+                                    <?php if ($title): ?>
+                                        <h3><?php echo esc_html($title); ?></h3>
+                                    <?php endif; ?>
+                                    <?php if (!empty($button['title']) && !empty($button['url'])): ?>
+                                        <a href="<?php echo esc_url($button['url']); ?>" class="biz-btn-black" target="<?php echo esc_attr($button['target'] ?? '_self'); ?>">
+                                            <?php echo esc_html($button['title']); ?>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
-    </div>
-</section>
-<!-- why us ends -->
+    </section>
+    <!-- banner list Ends -->
+<?php endif; ?>
 
-<!-- top destination starts -->
-<section class="top-desti pad-0">
-    <div class="desti-inner">
-        <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination3.jpg" alt="desti">
-                <div class="desti-title">
-                    <div class="desti-title-inner">
-                        <h2 class="white bold">Top Most <br>Destination</h2>
-                        <p class="white mar-bottom-0">Lorem Ipsum is simply dummy text the printing and typesetting industry.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="desti-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination3.jpg" alt="desti">
-                    <div class="desti-content">
-                        <div class="rating mar-bottom-5">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <h3 class="white mar-bottom-0">New York</h3>
-                    </div>
-                    <div class="desti-overlay">
-                        <a href="#" class="biz-btn-white">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="desti-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination4.jpg" alt="desti">
-                    <div class="desti-content">
-                        <div class="rating mar-bottom-5">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <h3 class="white mar-bottom-0">Armania</h3>
-                    </div>
-                    <div class="desti-overlay">
-                        <a href="#" class="biz-btn-white">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="desti-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination5.jpg" alt="desti">
-                    <div class="desti-content">
-                        <div class="rating mar-bottom-5">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <h3 class="white mar-bottom-0">Manchester</h3>
-                    </div>
-                    <div class="desti-overlay">
-                        <a href="#" class="biz-btn-white">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="desti-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination7.jpg" alt="desti">
-                    <div class="desti-content">
-                        <div class="rating mar-bottom-5">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <h3 class="white mar-bottom-0">kathmandu</h3>
-                    </div>
-                    <div class="desti-overlay">
-                        <a href="#" class="biz-btn-white">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="desti-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination8.jpg" alt="desti">
-                    <div class="desti-content">
-                        <div class="rating mar-bottom-5">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <h3 class="white mar-bottom-0">Tokyo</h3>
-                    </div>
-                    <div class="desti-overlay">
-                        <a href="#" class="biz-btn-white">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="desti-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination9.jpg" alt="desti">
-                    <div class="desti-content">
-                        <div class="rating mar-bottom-5">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <h3 class="white mar-bottom-0">Norwich</h3>
-                    </div>
-                    <div class="desti-overlay">
-                        <a href="#" class="biz-btn-white">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="desti-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination10.jpg" alt="desti">
-                    <div class="desti-content">
-                        <div class="rating mar-bottom-5">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <h3 class="white mar-bottom-0">Norwich</h3>
-                    </div>
-                    <div class="desti-overlay">
-                        <a href="#" class="biz-btn-white">Book Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- top destination ends -->
 
-<!-- Trending Starts -->
-<section class="trending">
-    <div class="container">
-        <div class="section-title">
-            <h2>Perfect Holiday Plan</h2>
-            <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-        </div>
-        <div class="trend-box">
-            <div class="row mix tour">
-                <div class="col-md-4 col-sm-6 col-xs-12 mar-bottom-30">
-                    <div class="trend-item">
-                        <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                        <div class="trend-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending1.jpg" alt="image">
-                            <div class="trend-tags">
-                                <a href="#"><i class="flaticon-like"></i></a>
-                            </div>
-                            <div class="trend-price">
-                                <p class="price">From <span>$350.00</span></p>
-                            </div>
-                        </div>
-                        <div class="trend-content">
-                            <p><i class="flaticon-location-pin"></i> United Kingdom</p>
-                            <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-                            <div class="rating mar-bottom-10">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </div>
-                            <span class="mar-left-5">38 Reviews</span>
-                            <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12 mar-bottom-30">
-                    <div class="trend-item">
-                        <div class="trend-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending2.jpg" alt="image">
-                            <div class="trend-tags">
-                                <a href="#"><i class="flaticon-like"></i></a>
-                            </div>
-                            <div class="trend-price">
-                                <p>Multi-day Tours</p>
-                                <p class="price">From <span>$899.00</span></p>
-                            </div>
-                        </div>
-                        <div class="trend-content">
-                            <p><i class="flaticon-location-pin"></i> Germany</p>
-                            <h4><a href="#">Bosphorus and Black Sea Cruise from Istanbul</a></h4>
-                            <div class="rating mar-bottom-10">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star-half checked"></span>
-                                <span class="fa fa-star-half checked"></span>
-                            </div>
-                            <span class="mar-left-5">48 Reviews</span>
-                            <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12 mar-bottom-30">
-                    <div class="trend-item">
-                        <div class="ribbon ribbon-top-left"><span>Featured</span></div>
-                        <div class="trend-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending3.jpg" alt="image">
-                            <div class="trend-tags">
-                                <a href="#"><i class="flaticon-like"></i></a>
-                            </div>
-                            <div class="trend-price">
-                                <p>Attraction Tickets</p>
-                                <p class="price">From <span>$350.00</span></p>
-                            </div>
-                        </div>
-                        <div class="trend-content">
-                            <p><i class="flaticon-location-pin"></i> Denmark</p>
-                            <h4><a href="#">NYC One World Observatory Skip-the-Line Ticket</a></h4>
-                            <div class="rating mar-bottom-10">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </div>
-                            <span class="mar-left-5">32 Reviews</span>
-                            <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="trend-item">
-                        <div class="trend-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending4.jpg" alt="image">
-                            <div class="trend-tags">
-                                <a href="#"><i class="flaticon-like"></i></a>
-                            </div>
-                            <div class="trend-price">
-                                <p class="price">From <span>$350.00</span></p>
-                            </div>
-                        </div>
-                        <div class="trend-content">
-                            <p><i class="flaticon-location-pin"></i> Japan</p>
-                            <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-                            <div class="rating mar-bottom-10">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star-half checked"></span>
-                            </div>
-                            <span class="mar-left-5">21 Reviews</span>
-                            <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="trend-item">
-                        <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                        <div class="trend-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending5.jpg" alt="image">
-                            <div class="trend-tags">
-                                <a href="#"><i class="flaticon-like"></i></a>
-                            </div>
-                            <div class="trend-price">
-                                <p>Multi-day Tours</p>
-                                <p class="price">From <span>$899.00</span></p>
-                            </div>
-                        </div>
-                        <div class="trend-content">
-                            <p><i class="flaticon-location-pin"></i> Italy</p>
-                            <h4><a href="#">Bosphorus and Black Sea Cruise from Istanbul</a></h4>
-                            <div class="rating mar-bottom-10">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star-half checked"></span>
-                                <span class="fa fa-star-half checked"></span>
-                            </div>
-                            <span class="mar-left-5">48 Reviews</span>
-                            <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="trend-item">
-                        <div class="trend-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending6.jpg" alt="image">
-                            <div class="trend-tags">
-                                <a href="#"><i class="flaticon-like"></i></a>
-                            </div>
-                            <div class="trend-price">
-                                <p>Attraction Tickets</p>
-                                <p class="price">From <span>$350.00</span></p>
-                            </div>
-                        </div>
-                        <div class="trend-content">
-                            <p><i class="flaticon-location-pin"></i> Turkey</p>
-                            <h4><a href="#">NYC One World Observatory Skip-the-Line Ticket</a></h4>
-                            <div class="rating mar-bottom-10">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </div>
-                            <span class="mar-left-5">18 Reviews</span>
-                            <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- shop starts -->
+    <section class="shop">
+        <div class="container">
+            <div class="section-title title-full">
+                <h2 class="mar-0"><?php echo $special_offer ?></h2>
             </div>
-        </div>
-    </div>
-</section>
-<!-- Trending Ends -->
+            <?php
+            $args = array(
+                'post_type'      => 'product',
+                'posts_per_page' => 10,
+                'meta_query'     => array(
+                    array(
+                        'key'     => 'special_offer',
+                        'value'   => '1',
+                        'compare' => '='
+                    )
+                ),
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'product_type',
+                        'field'    => 'slug',
+                        'terms'    => 'simple', // chỉ lấy sản phẩm simple
+                    )
+                )
+            );
 
-<!-- Call to action starts -->
-<section class="call-to-action">
-    <div class="container">
-        <div class="action-content text-center mar-bottom-20">
-            <h2 class="white mar-bottom-0">Find next place to visit</h2>
-            <h3 class="white package-name">EXPLORE THE WORLD</h3>
-        </div>
-        <div class="video-button text-center">
-            <div class="call-button1">
-                <button type="button" class="play-btn js-video-button" data-video-id="152879427" data-channel="vimeo">
-                    <i class="fa fa-play"></i>
-                </button>
-            </div>
-            <div class="video-figure"></div>
-        </div>
-    </div>
-</section>
-<!-- call to action Ends -->
-
-<!-- cta_one starts -->
-<section class="cta-one">
-    <div class="container">
-        <div class="cta-one_block display-flex space-between">
-            <h2 class="white mar-bottom-0">Work with our amazing tour guides</h2>
-            <a href="contact.html" class="biz-btn-white">Join our team</a>
-        </div>
-    </div>
-</section>
-<!-- cta_one ends -->
-
-<!-- top deal starts -->
-<section class="top-deals">
-    <div class="container">
-        <div class="section-title">
-            <h2>Today's Top Deals</h2>
-            <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-        </div>
-        <div class="row top-deal-slider">
-            <div class="col-md-4 slider-item">
-                <div class="slider-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending7.jpg" alt="image">
-                </div>
-                <div class="slider-content">
-                    <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> United Kingdom</h6>
-                    <h4><a href="#">Earning Asiana Club Miles</a></h4>
-                    <p>With upto 30% Off, experience Europe your way!</p>
-                    <div class="deal-price">
-                        <p class="price">From <span>$250.00</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 slider-item">
-                <div class="slider-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending8.jpg" alt="image">
-                </div>
-                <div class="slider-content">
-                    <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Thailand</h6>
-                    <h4><a href="#">Save big on hotels!</a></h4>
-                    <p>With upto 30% Off, experience Europe your way!</p>
-                    <div class="deal-price">
-                        <p class="price">From <span>$250.00</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 slider-item">
-                <div class="slider-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending9.jpg" alt="image">
-                </div>
-                <div class="slider-content">
-                    <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> South Korea</h6>
-                    <h4><a href="#">Experience Europe Your Way</a></h4>
-                    <p>With upto 30% Off, experience Europe your way!</p>
-                    <div class="deal-price">
-                        <p class="price">From <span>$250.00</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 slider-item">
-                <div class="slider-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending10.jpg" alt="image">
-                </div>
-                <div class="slider-content">
-                    <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Germany</h6>
-                    <h4><a href="#">Earning Asiana Club Miles</a></h4>
-                    <p>With upto 30% Off, experience Europe your way!</p>
-                    <div class="deal-price">
-                        <p class="price">From <span>$250.00</span></p>
-                    </div>
+            $loop = new WP_Query($args);
+            ?>
+            <div class="special-offer mar-top-10">
+                <div class="row hotel-slider-slick">
+                    <?php while ( $loop->have_posts() ) : $loop->the_post(); global $product; ?>
+                        <div class="col-md-4 col-sm-6 col-xs-12 mar-top-10 mar-bottom-10">
+                            <div class="shop-item">
+                                <div class="shop-image">
+                                    <?php if ($product->is_on_sale()) : ?>
+                                        <div class="ribbon ribbon-top-left">
+                                <span>
+                                    <?php
+                                    $regular_price = $product->get_regular_price();
+                                    $sale_price = $product->get_sale_price();
+                                    $percent = round((($regular_price - $sale_price) / $regular_price) * 100);
+                                    echo $percent . '% OFF';
+                                    ?>
+                                </span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <a href="<?php the_permalink(); ?>">
+                                        <?php echo $product->get_image(); ?>
+                                    </a>
+                                </div>
+                                <div class="shop-content">
+                                    <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                                    <div class="shop-price">
+                                        <?php if ( $product->is_on_sale() ) : ?>
+                                            <del><span><?php echo wc_price($product->get_regular_price()); ?></span></del>
+                                        <?php endif; ?>
+                                        <ins><span><?php echo wc_price($product->get_price()); ?></span></ins>
+                                    </div>
+                                    <a class="biz-btn-black mar-top-20" href="<?php echo esc_url( $product->add_to_cart_url() ); ?>">
+                                        <?php echo esc_html( $product->add_to_cart_text() ); ?>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endwhile; wp_reset_postdata(); ?>
                 </div>
             </div>
 
-        </div>
-    </div>
-</section>
-<!-- top deal ends -->
 
-<!-- Discount action starts -->
-<section class="discount-action pad-top-0">
-    <div class="container">
-        <div class="call-banner">
+        </div>
+    </section>
+    <!-- Shop Ends -->
+
+    <!-- shop starts -->
+    <section class="shop bg-grey">
+        <div class="container">
+            <div class="section-title title-full">
+                <h2 class="mar-0"><?php echo $featured_categories ?></h2>
+            </div>
+            <?php
+            $category_slug = 'accessories';
+
+            $args = array(
+                'post_type'      => 'product',
+                'posts_per_page' => 10,
+                'tax_query'      => array(
+                    'relation' => 'AND',
+                    array(
+                        'taxonomy' => 'product_type',
+                        'field'    => 'slug',
+                        'terms'    => 'simple',
+                    ),
+                    array(
+                        'taxonomy' => 'product_cat',
+                        'field'    => 'slug',
+                        'terms'    => $category_slug,
+                    )
+                )
+            );
+
+            $loop = new WP_Query($args);
+            if ($loop->have_posts()) :
+                ?>
+                <div class="special-offer mar-top-10">
+                    <div class="row partner-slider-slick">
+                        <?php while ($loop->have_posts()) : $loop->the_post(); global $product; ?>
+                            <div class="col-md-4 col-sm-6 col-xs-12 mar-top-10 mar-bottom-10">
+                                <div class="shop-item">
+                                    <div class="shop-image">
+                                        <?php if ($product->is_on_sale()) : ?>
+                                            <div class="ribbon ribbon-top-left"><span><?php echo round(100 - ($product->get_sale_price() / $product->get_regular_price()) * 100); ?>% OFF</span></div>
+                                        <?php endif; ?>
+                                        <a href="<?php the_permalink(); ?>">
+                                            <?php echo $product->get_image(); ?>
+                                        </a>
+                                    </div>
+                                    <div class="shop-content">
+                                        <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                                        <div class="shop-price">
+                                            <?php if ($product->is_on_sale()) : ?>
+                                                <del><span><?php echo wc_price($product->get_regular_price()); ?></span></del>
+                                            <?php endif; ?>
+                                            <ins><span><?php echo wc_price($product->get_price()); ?></span></ins>
+                                        </div>
+                                        <a class="biz-btn-black mar-top-20" href="<?php echo esc_url( $product->add_to_cart_url() ); ?>"><?php echo esc_html( $product->add_to_cart_text() ); ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    </div>
+                </div>
+            <?php
+            endif;
+            wp_reset_postdata();
+            ?>
+        </div>
+    </section>
+    <!-- Shop Ends -->
+
+    <!-- banner list starts -->
+    <section class="banner_area">
+        <div class="container">
+            <div class="single_banner">
+                <div class="row display-flex">
+                    <div class="col-md-6 col-xs-12">
+                        <a href="<?php echo esc_url($car_banner['button']['url']); ?>">
+                            <img src="<?php echo wp_get_attachment_url($car_banner['image']); ?>" alt="image">
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="banner_text1">
+                            <h4><?php echo esc_html($car_banner['label']); ?></h4>
+                            <h2><?php echo esc_html($car_banner['title']); ?></h2>
+                            <p><?php echo esc_html($car_banner['description']); ?></p>
+                            <a href="<?php echo esc_url($car_banner['button']['url']); ?>" class="biz-btn-black">
+                                <?php echo esc_html($car_banner['button']['title']); ?>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- banner list Ends -->
+
+
+    <!-- partners starts -->
+    <section class="partners bg-grey">
+        <div class="container">
+            <div class="dest-partner">
+                <div class="section-title">
+                    <h2 class="mar-0"><?php echo esc_html($slide_brand['title']); ?></h2>
+                </div>
+                <div class="row partner-slider-slick">
+                    <?php
+                    // Lặp qua danh sách brand ID
+                    if (!empty($slide_brand['list_brand'])) {
+                        foreach ($slide_brand['list_brand'] as $brand_id) {
+                            $brand_image_url = wp_get_attachment_url($brand_id);
+                            if ($brand_image_url) {
+                                echo '<div class="col-md-2">';
+                                echo '<img src="' . esc_url($brand_image_url) . '" alt="partners">';
+                                echo '</div>';
+                            }
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- partners ends -->
+
+
+    <!-- blog starts -->
+    <section class="blog">
+        <div class="container">
+            <div class="section-title">
+                <h2>Recent <span>Activities</span></h2>
+                <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+            </div>
+            <div class="blog-main">
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="grid">
+                            <div class="grid-item">
+                                <div class="grid-image">
+                                    <img src="images/trending8.jpg" alt="blog">
+                                    <div class="overlay"></div>
+                                </div>
+                                <div class="gridblog-content">
+                                    <div class="date mar-bottom-15"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
+                                    <h3><a href="blog-single.html">Raising say express had chiefly detract</a></h3>
+                                    <p class="mar-0"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum Nam finibus consectetur adipiscing elit.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="grid">
+                            <div class="grid-item">
+                                <div class="grid-image">
+                                    <img src="images/car3.jpg" alt="blog">
+                                    <div class="overlay"></div>
+                                </div>
+                                <div class="gridblog-content">
+                                    <div class="date mar-bottom-15"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
+                                    <h3><a href="blog-single.html">Raising say express had chiefly detract</a></h3>
+                                    <p class="mar-0"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum Nam finibus consectetur adipiscing elit.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="grid">
+                            <div class="grid-item">
+                                <div class="grid-image">
+                                    <img src="images/trending4.jpg" alt="blog">
+                                    <div class="overlay"></div>
+                                </div>
+                                <div class="gridblog-content">
+                                    <div class="date mar-bottom-15"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
+                                    <h3><a href="blog-single.html">Raising say express had chiefly detract</a></h3>
+                                    <p class="mar-0"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum Nam finibus consectetur adipiscing elit.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- blog Ends -->
+
+<?php
+if (!empty($section_banner_list_starts2) && is_array($section_banner_list_starts2)) :
+    ?>
+    <!-- banner list starts -->
+    <section class="banner_area pad-top-0">
+        <div class="container">
             <div class="row">
-                <div class="col-md-6 col-xs-12">
-                    <div class="call-banner-inner text-center">
-                        <h2>SUMMER SPECIAL <br>UPTO 25% OFF</h2>
-                        <h3 class="mar-bottom-20">SPEND THE BEST VACTION WITH US <br>The nights of Thailand</h3>
-                        <a href="#" class="biz-btn biz-btn1">View Details</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12"></div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Discount action Ends -->
-
-<!-- Top Featured -->
-<section class="travelcounter">
-    <div class="container">
-        <div class="section-title">
-            <h2 class="white">call our agents to book</h2>
-            <p class="white">Travel award winning and top rated tour operator</p>
-        </div>
-        <div class="row service-gg">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="counter-item">
-                    <div class="counter-icon">
-                        <i class="fas fa-hiking" aria-hidden="true"></i>
-                    </div>
-                    <div class="counter-content">
-                        <h3 class="boats">80</h3>
-                        <p class="mar-0">Pro Tour Guides</p>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="counter-item">
-                    <div class="counter-icon">
-                        <i class="fa fa-map-marker-alt" aria-hidden="true"></i>
-                    </div>
-                    <div class="counter-content">
-                        <h3 class="location">19</h3>
-                        <p class="mar-0">Tours are Completed</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="counter-item">
-                    <div class="counter-icon">
-                        <i class="fa fa-walking" aria-hidden="true"></i>
-                    </div>
-                    <div class="counter-content">
-                        <h3 class="showroom">10</h3>
-                        <p class="mar-0">Traveling Experience</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="counter-item">
-                    <div class="counter-icon">
-                        <i class="fa fa-users" aria-hidden="true"></i>
-                    </div>
-                    <div class="counter-content">
-                        <h3 class="lisence">100</h3>
-                        <p class="mar-0">Happy Customers</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Top Featured -->
-
-<!-- Reviews starts-->
-<section class="top-review bg-grey">
-    <div class="container">
-        <div class="section-title">
-            <h2>Top Tour Reviews</h2>
-            <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-        </div>
-        <div class="row">
-            <div class="review-slider">
-                <div class="col-md-4 reviews-list align-center">
-                    <div class="list-rv-detail">
-                        <p class="mar-0"><i class="fa fa-quote-left mar-right-10"></i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged</p>
-                    </div>
-                    <div class="rev-author mar-top-40">
-                        <div class="rev-image"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/inbox3.jpg" alt="image"></div>
-                        <div class="rev-content mar-left-20">
-                            <h4 class="mar-bottom-5">John Doe</h4>
-                            <p class="mar-bottom-5"> CEO/Mario Brand</p>
-                            <ul class="list-inline">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 reviews-list align-center">
-                    <div class="list-rv-detail">
-                        <p class="mar-0"><i class="fa fa-quote-left mar-right-10"></i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged</p>
-                    </div>
-                    <div class="rev-author mar-top-40">
-                        <div class="rev-image"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/inbox1.jpg" alt="image"></div>
-                        <div class="rev-content mar-left-20">
-                            <h4 class="mar-bottom-5">Drank Bastis Doe</h4>
-                            <p class="mar-bottom-5"> COO/Nell & wells Co.</p>
-                            <ul class="list-inline">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 reviews-list align-center">
-                    <div class="list-rv-detail">
-                        <p class="mar-0"> <i class="fa fa-quote-left mar-right-10"></i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged</p>
-                    </div>
-                    <div class="rev-author mar-top-40">
-                        <div class="rev-image"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/inbox2.jpg" alt="image"></div>
-                        <div class="rev-content mar-left-20">
-                            <h4 class="mar-bottom-5">John Doe</h4>
-                            <p class="mar-bottom-5"> CEO/Mario Brand</p>
-                            <ul class="list-inline">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 reviews-list align-center">
-                    <div class="list-rv-detail">
-                        <p class="mar-0"><i class="fa fa-quote-left mar-right-10"></i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged</p>
-                    </div>
-                    <div class="rev-author mar-top-40">
-                        <div class="rev-image"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/inbox3.jpg" alt="image"></div>
-                        <div class="rev-content mar-left-20">
-                            <h4 class="mar-bottom-5">Wayne Nell</h4>
-                            <p class="mar-bottom-5"> Director/Franchisis Com</p>
-                            <ul class="list-inline">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 reviews-list align-center">
-                    <div class="list-rv-detail">
-                        <p class="mar-0"><i class="fa fa-quote-left mar-right-10"></i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged</p>
-                    </div>
-                    <div class="rev-author mar-top-40">
-                        <div class="rev-image"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/inbox4.jpg" alt="image"></div>
-                        <div class="rev-content mar-left-20">
-                            <h4 class="mar-bottom-5">Yolksel Doke</h4>
-                            <p class="mar-bottom-5"> CEO/Rupens Trator </p>
-                            <ul class="list-inline">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Reviews -->
-
-<!-- blog starts -->
-<section class="blog">
-    <div class="container">
-        <div class="section-title">
-            <h2>Recent Activities</h2>
-            <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-        </div>
-        <div class="blog-main">
-            <div class="row">
-
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-12 mar-bottom-25">
-                            <div class="grid">
-                                <div class="grid-item">
-                                    <div class="gridblog-content">
-                                        <div class="date mar-bottom-15"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
-                                        <h3><a href="blog-single.html">Raising say express had chiefly detract</a></h3>
-                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum Nam finibus.</p>
-                                        <a href="blog-single.html" class="biz-btn biz-btn1">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="grid">
-                                <div class="grid-item grid-item1">
-                                    <div class="grid-image">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending2.jpg" alt="blog">
-                                    </div>
-                                    <div class="gridblog-content">
-                                        <div class="date mar-bottom-10 white"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
-                                        <h3 class="mar-0"><a href="blog-single.html" class="white">Raising say express had chiefly detract</a></h3>
-                                    </div>
+                <?php foreach ($section_banner_list_starts2 as $item):
+                    $image_url = !empty($item['image']) ? wp_get_attachment_image_url($item['image'], 'full') : '';
+                    $lable = !empty($item['lable']) ? $item['lable'] : '';
+                    $title = !empty($item['title']) ? $item['title'] : '';
+                    $button = !empty($item['button']) && is_array($item['button']) ? $item['button'] : [];
+                    ?>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="single_banner">
+                            <div class="banner_thumb">
+                                <?php if ($image_url): ?>
+                                    <a href="<?php echo esc_url($button['url'] ?? '#'); ?>">
+                                        <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                                    </a>
+                                <?php endif; ?>
+                                <div class="banner_text">
+                                    <?php if ($lable): ?>
+                                        <h4><?php echo esc_html($lable); ?></h4>
+                                    <?php endif; ?>
+                                    <?php if ($title): ?>
+                                        <h3><?php echo esc_html($title); ?></h3>
+                                    <?php endif; ?>
+                                    <?php if (!empty($button['title']) && !empty($button['url'])): ?>
+                                        <a href="<?php echo esc_url($button['url']); ?>" class="biz-btn-black" target="<?php echo esc_attr($button['target'] ?? '_self'); ?>">
+                                            <?php echo esc_html($button['title']); ?>
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-12 mar-bottom-25">
-                            <div class="grid">
-                                <div class="grid-item grid-item1">
-                                    <div class="grid-image">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending6.jpg" alt="blog">
-                                    </div>
-                                    <div class="gridblog-content">
-                                        <div class="date mar-bottom-10 white"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
-                                        <h3 class="mar-0"><a href="blog-single.html" class="white">Raising say express had chiefly detract</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="grid">
-                                <div class="grid-item">
-                                    <div class="gridblog-content">
-                                        <div class="date mar-bottom-15"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
-                                        <h3><a href="blog-single.html">Raising say express had chiefly detract</a></h3>
-                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum Nam finibus.</p>
-                                        <a href="blog-single.html" class="biz-btn biz-btn1">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-12 mar-bottom-25">
-                            <div class="grid">
-                                <div class="grid-item">
-                                    <div class="gridblog-content">
-                                        <div class="date mar-bottom-15"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
-                                        <h3><a href="blog-single.html">Raising say express had chiefly detract</a></h3>
-                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum Nam finibus.</p>
-                                        <a href="blog-single.html" class="biz-btn biz-btn1">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="grid">
-                                <div class="grid-item grid-item1">
-                                    <div class="grid-image">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/trending7.jpg" alt="blog">
-                                    </div>
-                                    <div class="gridblog-content">
-                                        <div class="date mar-bottom-10 white"><i class="flaticon flaticon-calendar"></i> Mar 15, 2017</div>
-                                        <h3 class="mar-0"><a href="blog-single.html" class="white">Raising say express had chiefly detract</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <?php endforeach; ?>
             </div>
         </div>
-    </div>
-</section>
-<!-- blog Ends -->
-
-<!-- partners starts -->
-<section class="partners bg-grey">
-    <div class="container">
-        <div class="section-title">
-            <h2>Our Awesome Parnters</h2>
-            <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-        </div>
-        <div class="dest-partner">
-            <div class="row partner-slider">
-                <div class="col-md-2">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/cl-3.png" alt="partners">
-                </div>
-                <div class="col-md-2">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/cl-3.png" alt="partners">
-                </div>
-                <div class="col-md-2">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/cl-3.png" alt="partners">
-                </div>
-                <div class="col-md-2">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/cl-3.png" alt="partners">
-                </div>
-                <div class="col-md-2">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/cl-3.png" alt="partners">
-                </div>
-                <div class="col-md-2">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/cl-3.png" alt="partners">
-                </div>
-                <div class="col-md-2">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/cl-3.png" alt="partners">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- partners ends -->
-
-<!-- Instagram starts -->
-<section class="insta-main pad-0">
-    <div class="insta-inner">
-        <div class="row display-flex">
-            <div class="col-md-2 col-sm-3 col-xs-12">
-                <div class="insta-title">
-                    <div class="insta-title-inner text-center">
-                        <h4 class="white mar-bottom-5">Follow@instagram</h4>
-                        <h3 class="white bold">Nepayatri</h3>
-                        <a href="#" class="biz-btn-white">Follow Us</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-10 col-sm-9 col-xs-12">
-                <div class="row attract-slider">
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="insta-image">
-                            <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination3.jpg" alt="insta"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="insta-image">
-                            <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination4.jpg" alt="insta"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="insta-image">
-                            <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination5.jpg" alt="insta"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="insta-image">
-                            <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination6.jpg" alt="insta"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="insta-image">
-                            <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination7.jpg" alt="insta"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="insta-image">
-                            <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination8.jpg" alt="insta"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="insta-image">
-                            <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/destination9.jpg" alt="insta"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Instagram ends -->
+    </section>
+    <!-- banner list Ends -->
+<?php endif; ?>
 
 <?php
 get_footer();

@@ -183,6 +183,58 @@
              }
          }]
      });
+
+
+
+     $('.hotel-slider-slick').slick({
+         infinite: true,
+         slidesToShow: 4,
+         slidesToScroll: 1,
+         speed: 300,
+         arrows: false,
+         dots: false,
+         autoplay: true,
+         responsive: [{
+             breakpoint: 1000,
+             settings: {
+                 slidesToShow: 2
+             }
+         }, {
+             breakpoint: 500,
+             settings: {
+                 slidesToShow: 1
+             }
+         }]
+     });
+
+     $('.partner-slider-slick').slick({
+         infinite: true,
+         slidesToShow: 5,
+         slidesToScroll: 1,
+         arrows: false,
+         dots: false,
+         autoplay: true,
+         speed: 1000,
+         responsive: [{
+             breakpoint: 1000,
+             settings: {
+                 slidesToShow: 3
+             }
+         }, {
+             breakpoint: 800,
+             settings: {
+                 slidesToShow: 2
+             }
+         }, {
+             breakpoint: 500,
+             settings: {
+                 slidesToShow: 1
+             }
+         }]
+     });
+
+
+
      $('.partner-slider').slick({
          infinite: true,
          slidesToShow: 5,
