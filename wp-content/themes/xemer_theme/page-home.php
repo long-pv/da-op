@@ -175,8 +175,8 @@ if (!empty($section_banner_list_starts) && is_array($section_banner_list_starts)
                                         <?php endif; ?>
                                         <ins><span><?php echo wc_price($product->get_price()); ?></span></ins>
                                     </div>
-                                    <a class="biz-btn-black mar-top-20" href="<?php echo esc_url( $product->add_to_cart_url() ); ?>">
-                                        <?php echo esc_html( $product->add_to_cart_text() ); ?>
+                                    <a class="biz-btn-black mar-top-20" href="<?php echo esc_url( $product->get_permalink()); ?>">
+                                        <?php echo esc_html('View product' ); ?>
                                     </a>
                                 </div>
                             </div>
@@ -241,7 +241,7 @@ if (!empty($section_banner_list_starts) && is_array($section_banner_list_starts)
                                             <?php endif; ?>
                                             <ins><span><?php echo wc_price($product->get_price()); ?></span></ins>
                                         </div>
-                                        <a class="biz-btn-black mar-top-20" href="<?php echo esc_url( $product->add_to_cart_url() ); ?>"><?php echo esc_html( $product->add_to_cart_text() ); ?></a>
+                                        <a class="biz-btn-black mar-top-20" href="<?php echo esc_url( $product->get_permalink() ); ?>"><?php echo esc_html('View product' ); ?></a>
                                     </div>
                                 </div>
                             </div>

@@ -144,16 +144,13 @@ add_action('widgets_init', 'xemer_theme_widgets_init');
 function xemer_theme_scripts()
 {
 	// css
-    wp_enqueue_style('xemer_theme-flaticon1', get_template_directory_uri() . '/assets/fonts/slick.css', array(), _S_VERSION);
-    wp_enqueue_style('xemer_theme-flaticon2', get_template_directory_uri() . '/assets/fonts/slick-theme.css', array(), _S_VERSION);
-
 	wp_enqueue_style('xemer_theme-bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css', array(), _S_VERSION);
 	wp_enqueue_style('xemer_theme-default', get_template_directory_uri() . '/assets/css/default.css', array(), _S_VERSION);
 	wp_enqueue_style('xemer_theme-style', get_template_directory_uri() . '/assets/css/style.css', array(), _S_VERSION);
 	wp_enqueue_style('xemer_theme-color-default', get_template_directory_uri() . '/assets/css/color/color-default.css', array(), _S_VERSION);
 	wp_enqueue_style('xemer_theme-plugin', get_template_directory_uri() . '/assets/css/plugin.css', array(), _S_VERSION);
 	wp_enqueue_style('xemer_theme-flaticon', get_template_directory_uri() . '/assets/fonts/flaticon.css', array(), _S_VERSION);
-
+    wp_enqueue_style('xemer_theme-main', get_template_directory_uri() . '/assets/css/main.css', array(), _S_VERSION);
 	// js
 	wp_enqueue_script('xemer_theme-jquery', get_template_directory_uri() . '/assets/js/jquery-3.3.1.min.js', array(), _S_VERSION, true);
 	wp_enqueue_script('xemer_theme-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array(), _S_VERSION, true);

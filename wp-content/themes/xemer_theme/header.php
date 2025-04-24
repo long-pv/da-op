@@ -79,44 +79,7 @@
                                     <?php endforeach; ?>
                                 </ul>
                             <?php endif; ?>
-
                         </li>
-						<li><a href="#" data-toggle="modal" data-target="#login"><i class="fa fa-sign-in-alt"></i> Login</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#register"><i class="fa fa-sign-out-alt"></i> Register</a></li>
-						<li>
-							<div class="header_sidemenu">
-								<div class="menu">
-									<div class="close-menu">
-										<i class="fa fa-times white"></i>
-									</div>
-									<div class="m-contentmain">
-										<div class="m-logo mar-bottom-30">
-											<img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-white.png" alt="m-logo">
-										</div>
-
-										<div class="content-box mar-bottom-30">
-											<h3 class="white">Get In Touch</h3>
-											<p class="white">We must explain to you how all seds this mistakens idea off denouncing pleasures and praising pain was born and I will give you a completed accounts..</p>
-											<a href="#" class="biz-btn biz-btn1">Consultation</a>
-										</div>
-
-										<div class="contact-info">
-											<h4 class="white">Contact Info</h4>
-											<ul>
-												<li><i class="fa fa-map-marker-alt"></i> Travel 26, Old Brozon Mall, Newyrok NY 10005</li>
-												<li><i class="fa fa-phone-alt"></i>555 626-0234</li>
-												<li><i class="fa fa-envelope-open"></i>support@travel.com</li>
-												<li><i class="fa fa-clock"></i> Week Days: 09.00 to 18.00 Sunday: Closed</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-
-								<div class="mhead">
-									<span class="menu-ham"><i class="fa fa-bars white"></i></span>
-								</div>
-							</div>
-						</li>
 					</ul>
 				</div>
 			</div>
@@ -331,9 +294,6 @@
 								</li>
 								<li class="dropdown">
 									<a href="#search1" class="mt_search"><i class="fa fa-search"></i></a>
-								</li>
-								<li class="dropdown">
-									<a href="cart.html" class="mt_cart"><i class="fa fa-shopping-cart"></i><span class="number-cart">1</span></a>
 								</li>
 							</ul>
 						</div><!-- /.navbar-collapse -->
