@@ -8,6 +8,11 @@
 	//
 	//
 	// ... buivien
+
+    $('.product-filter-form .submit-search').on('click', function(e) {
+        $('.product-filter-form')[0].submit();
+    });
+
 	//
 	//
 	//

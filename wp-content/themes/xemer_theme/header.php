@@ -28,6 +28,7 @@
     $setting_header = get_field('setting_header', 'option');
     $header_top = isset($setting_header['header_top']) ? $setting_header['header_top'] : '';
     $social_links = isset($setting_header['social_links']) ? $setting_header['social_links'] : '';
+    $logo = isset($setting_header['logo']) ? $setting_header['logo'] : '';
 	?>
 
 
@@ -91,8 +92,8 @@
 					<div class="navbar-flex">
 						<!-- Brand and toggle get grouped for better mobile display -->
 						<div class="navbar-header">
-							<a class="navbar-brand" href="index.html">
-								<img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-black.png" alt="image">
+							<a class="navbar-brand" href="<?php echo home_url()?> ">
+								<img src="<?php echo $logo ?>" alt="image">
 							</a>
 						</div>
 						<!-- Collect the nav links, forms, and other content for toggling -->
@@ -144,10 +145,10 @@
                                     </ul>
                                 </li>
 								<li class="submenu dropdown">
-									<a href="index-cars.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cam kết</i></a>
+									<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cam kết</i></a>
 								</li>
 								<li class="submenu dropdown">
-									<a href="index-cruise.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tin tức</a>
+									<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tin tức</a>
 								</li>
 								<li class="submenu dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Liên hệ</a>

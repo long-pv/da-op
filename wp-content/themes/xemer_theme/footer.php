@@ -133,9 +133,9 @@ $menu = isset($setting_footer['menu']) ? $setting_footer['menu'] : '';
 <!-- search popup -->
 <div id="search1">
     <button type="button" class="close">×</button>
-    <form>
-        <input type="search" value="" placeholder="type keyword(s) here" />
-        <button type="submit" class="btn btn-primary">Search</button>
+    <form class="product-filter-form" method="get" action="<?php echo home_url('shop-list') ?>">
+        <input name="key" type="search" value="" placeholder="type keyword(s) here" />
+        <button type="submit" class="btn btn-primary submit-search">Search</button>
     </form>
 </div>
 <?php wp_footer(); ?>
