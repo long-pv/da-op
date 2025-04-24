@@ -24,7 +24,7 @@ $menu = isset($setting_footer['menu']) ? $setting_footer['menu'] : '';
         <div class="container">
             <div class="row">
                 <?php if (!empty($column_1)) : ?>
-                    <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="col-md-5 col-sm-12 col-xs-12">
                         <div class="footer-about">
                             <div class="footer-about-in mar-bottom-30">
                                 <h3 class="white"><?= esc_html($column_1['title_top']) ?></h3>
@@ -55,30 +55,21 @@ $menu = isset($setting_footer['menu']) ? $setting_footer['menu'] : '';
                     </div>
                 <?php endif; ?>
 
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="col-md-5 col-sm-6 col-xs-12">
                     <div class="footer-links">
                         <?php if (!empty($column_2['title_menu'])) : ?>
                             <h3 class="white"><?php echo esc_html($column_2['title_menu']); ?></h3>
                         <?php endif; ?>
 
-                        <?php if (!empty($column_2['list_item']) && is_array($column_2['list_item'])) : ?>
-                            <ul>
-                                <?php foreach ($column_2['list_item'] as $item) :
-                                    $link = $item['link'] ?? [];
-                                    $title = $link['title'] ?? '';
-                                    $url = $link['url'] ?? '#';
-                                    $target = !empty($link['target']) ? ' target="' . esc_attr($link['target']) . '"' : '';
-                                    ?>
-                                    <li>
-                                        <a href="<?php echo esc_url($url); ?>"<?php echo $target; ?>><?php echo esc_html($title); ?></a>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
+                        <?php if (!empty($column_2['fb-page'])) : ?>
+                            <div class="fanpage-fb">
+                                <?php echo $column_2['fb-page']; ?>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
 
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="footer-links">
                         <?php if (!empty($column_3['title_menu'])) : ?>
                             <h3 class="white"><?php echo esc_html($column_3['title_menu']); ?></h3>
@@ -133,8 +124,8 @@ $menu = isset($setting_footer['menu']) ? $setting_footer['menu'] : '';
 <!-- search popup -->
 <div id="search1">
     <button type="button" class="close">×</button>
-    <form class="product-filter-form" method="get" action="<?php echo home_url('shop-list') ?>">
-        <input name="key" type="search" value="" placeholder="type keyword(s) here" />
+    <form class="product-search-key" method="get" action="<?php echo home_url('shop-list') ?>">
+        <input name="key" type="search" placeholder="Nhập từ khóa tìm kiếm" />
         <button type="submit" class="btn btn-primary submit-search">Search</button>
     </form>
 </div>

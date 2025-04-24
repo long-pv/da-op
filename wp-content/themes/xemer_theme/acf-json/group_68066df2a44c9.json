@@ -495,11 +495,11 @@
                             "append": ""
                         },
                         {
-                            "key": "field_6809e5ee197e9",
-                            "label": "List item",
-                            "name": "list_item",
+                            "key": "field_680a4bc34f814",
+                            "label": "fb-page",
+                            "name": "fb-page",
                             "aria-label": "",
-                            "type": "repeater",
+                            "type": "textarea",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -508,32 +508,11 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "layout": "",
-                            "pagination": 0,
-                            "min": 0,
-                            "max": 0,
-                            "collapsed": "",
-                            "button_label": "Add Row",
-                            "rows_per_page": 20,
-                            "sub_fields": [
-                                {
-                                    "key": "field_6809e608197ea",
-                                    "label": "Link",
-                                    "name": "link",
-                                    "aria-label": "",
-                                    "type": "link",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "return_format": "",
-                                    "parent_repeater": "field_6809e5ee197e9"
-                                }
-                            ]
+                            "default_value": "",
+                            "maxlength": "",
+                            "rows": "",
+                            "placeholder": "",
+                            "new_lines": ""
                         }
                     ]
                 },
@@ -698,5 +677,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1745489731
+    "modified": 1745505622
 }
