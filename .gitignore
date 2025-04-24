@@ -46,6 +46,7 @@ backup
 debug.log
 dup-installer/
 changed_files/
+.idea/
 
 # wp-content
 wp-content/wpo-cache/
