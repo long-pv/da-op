@@ -6,8 +6,10 @@ $post_link = get_permalink();
 $share_link = get_permalink();
 $post_thumb = get_the_post_thumbnail_url($post_id, 'full');
 $post_date = get_the_date('d/m/Y');
-$categories = get_the_category();
-$category_name = !empty($categories) ? esc_html($categories[0]->name) : 'Chưa có danh mục';
+
+// Danh mục - Category
+// $categories = get_the_category();
+// $category_name = !empty($categories) ? esc_html($categories[0]->name) : 'Chưa có danh mục';
 ?>
 
 <div class="blog-single">
@@ -77,6 +79,7 @@ $category_name = !empty($categories) ? esc_html($categories[0]->name) : 'Chưa c
             </ul>
         </div>
 
+        <!-- Social -->
         <div class="header-social">
             <ul>
                 <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $share_link; ?>"
@@ -89,6 +92,7 @@ $category_name = !empty($categories) ? esc_html($categories[0]->name) : 'Chưa c
                         </span>
                     </a>
                 </li>
+
                 <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
 
                 <li>
@@ -107,7 +111,8 @@ $category_name = !empty($categories) ? esc_html($categories[0]->name) : 'Chưa c
                         <span class="social_share_post_icon">
                             <i class="fab fa-linkedin-in"></i>
                         </span>
-                    </a></li>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
