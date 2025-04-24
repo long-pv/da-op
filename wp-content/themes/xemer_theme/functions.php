@@ -197,3 +197,25 @@ require get_template_directory() . '/inc/cpt_custom.php';
 require get_template_directory() . '/inc/write_log.php';
 require get_template_directory() . '/inc/longpv.php';
 require get_template_directory() . '/inc/vucoder.php';
+
+function basetheme_woocommerce_setup()
+{
+add_theme_support(
+    'woocommerce',
+    array(
+        'thumbnail_image_width' => 150,
+        'single_image_width'    => 300,
+        'product_grid'          => array(
+            'default_rows'    => 3,
+            'min_rows'        => 1,
+            'default_columns' => 4,
+            'min_columns'     => 1,
+            'max_columns'     => 6,
+        ),
+    )
+);
+    add_theme_support('wc-product-gallery-zoom');
+    add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
+}
+add_action('after_setup_theme', 'basetheme_woocommerce_setup');
