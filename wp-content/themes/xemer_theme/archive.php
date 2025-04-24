@@ -15,7 +15,6 @@ get_header();
 	<!-- Breadcrumb -->
 	<?php
 	$banner_cat = get_field('banner_image', get_queried_object()) ?? '';
-	// var_dump($banner_cat);
 	?>
 	<style>
 		section.breadcrumb-outer:before {
@@ -120,10 +119,6 @@ get_header();
 						<div class="sidebar-item">
 							<h3>All Categories</h3>
 							<ul class="sidebar-category">
-								<!-- <li>
-									<a href="<?php echo get_permalink(get_option('page_for_posts')); ?>">All</a>
-								</li> -->
-
 								<?php
 								$categories = get_categories([
 									'orderby' => 'name',
@@ -142,6 +137,98 @@ get_header();
 								<?php endforeach; ?>
 							</ul>
 						</div>
+
+						<!-- Recent & Popular -->
+						<div class="sidebar-item">
+							<div class="sidebar-tabs">
+								<div class="sidebar-navtab text-center">
+									<ul class="nav nav-tabs">
+										<li class="active">
+											<a data-toggle="tab" href="#popular"><i class="fa fa-check-circle"></i> Most
+												Popular </a>
+										</li>
+										<li>
+											<a data-toggle="tab" href="#recent"><i class="fa fa-check-circle"></i>
+												Recent Post</a>
+										</li>
+									</ul>
+								</div>
+
+								<div class="tab-content">
+									<!-- Most Popular -->
+									<div id="popular" class="tab-pane fade in active">
+										<?php
+										$popular_banner = get_field('popular_banner', 'option'); // Banner từ theme option
+										$popular_posts = get_field('popular_post', 'option');   // Danh sách post object
+										?>
+
+										<?php if ($popular_banner): ?>
+											<div class="sidebar-image mar-bottom-20 mar-top-20">
+												<a href="#"><img src="<?php echo $popular_banner; ?>" alt=""></a>
+											</div>
+										<?php endif; ?>
+
+										<?php if ($popular_posts):
+											$i = 1;
+											foreach ($popular_posts as $post):
+												setup_postdata($post); ?>
+												<article class="post mar-bottom-20">
+													<div class="content display-flex">
+														<div class="blog-no"><?php echo sprintf('%02d', $i++); ?></div>
+														<div class="content-list pad-left-15">
+															<div class="date mar-bottom-5"><?php echo get_the_date(); ?></div>
+															<h4 class="mar-0">
+																<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+															</h4>
+														</div>
+													</div>
+												</article>
+											<?php endforeach;
+											wp_reset_postdata(); ?>
+										<?php endif; ?>
+									</div>
+
+									<!-- Recent Post -->
+									<div id="recent" class="tab-pane fade">
+										<?php
+										$recent_banner = get_field('recent_banner', 'option');
+										$recent_query = new WP_Query([
+											'posts_per_page' => 3,
+											'post_type' => 'post',
+											'orderby' => 'date',
+											'order' => 'DESC',
+										]);
+										?>
+
+										<?php if ($recent_banner): ?>
+											<div class="sidebar-image mar-bottom-20 mar-top-20">
+												<a href="#"><img src="<?php echo $recent_banner; ?>" alt=""></a>
+											</div>
+										<?php endif; ?>
+
+										<?php if ($recent_query->have_posts()):
+											$i = 1;
+											while ($recent_query->have_posts()):
+												$recent_query->the_post(); ?>
+												<article class="post mar-bottom-20">
+													<div class="content display-flex">
+														<div class="blog-no"><?php echo sprintf('%02d', $i++); ?></div>
+														<div class="content-list pad-left-15">
+															<div class="date mar-bottom-5"><?php echo get_the_date(); ?></div>
+															<h4 class="mar-0">
+																<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+															</h4>
+														</div>
+													</div>
+												</article>
+											<?php endwhile;
+											wp_reset_postdata(); ?>
+										<?php endif; ?>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<!-- Tags -->
 						<div class="sidebar-item">
 							<h3>Tags</h3>
