@@ -17,6 +17,33 @@
 get_header();
 ?>
 
+<!-- Banner -->
+<?php
+$banner_cat = get_the_post_thumbnail(get_the_ID(), 'full', ['alt' => get_the_title()]);
+?>
+<style>
+    section.breadcrumb-outer:before {
+        background-image: url(<?php echo $banner_cat; ?>);
+        background-repeat: no-repeat;
+
+    }
+</style>
+
+<section class="breadcrumb-outer text-center">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h2 class="white"><?php the_title(); ?></h2>
+            <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">About Us 1</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="overlay"></div>
+</section>
+
 <!-- About Us -->
 <?php
 $about_us = get_field('about_us') ?? [];
