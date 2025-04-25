@@ -73,7 +73,7 @@ get_header();
 									$popular_posts = $popular_post['popular_post'];
 									?>
 
-									<?php if ($popular_banner): ?>
+									<?php if ($popular_post['banner']): ?>
 										<div class="sidebar-image mar-bottom-20 mar-top-20">
 											<a href="#"><img src="<?php echo $popular_post['banner']; ?>" alt=""></a>
 										</div>
