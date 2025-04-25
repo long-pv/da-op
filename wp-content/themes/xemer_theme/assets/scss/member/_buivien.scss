@@ -39,10 +39,26 @@
   margin-bottom: 30px;
 }
 
-.page-template-page-shop-list {
+.page-template-page-shop-list, .tax-product_cat {
+  .shop-sidebar-content {
+    li.active {
+      a {
+        color: #038a43;
+      }
+    }
+  }
   .shop-image {
     img {
       width: 100%;
+    }
+  }
+  .post-detail {
+    .shop-price {
+      display: flex;
+      gap: 10px;
+      span {
+        margin: 0;
+      }
     }
   }
 
