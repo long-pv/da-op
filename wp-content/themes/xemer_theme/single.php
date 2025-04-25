@@ -69,13 +69,13 @@ get_header();
 								<!-- Most Popular -->
 								<div id="popular" class="tab-pane fade in active">
 									<?php
-									$popular_banner = get_field('popular_banner', 'option'); // Banner từ theme option
-									$popular_posts = get_field('popular_post', 'option');   // Danh sách post object
+									$popular_post = get_field('popular_post', 'option'); // Banner từ theme option
+									$popular_posts = $popular_post['popular_post'];
 									?>
 
 									<?php if ($popular_banner): ?>
 										<div class="sidebar-image mar-bottom-20 mar-top-20">
-											<a href="#"><img src="<?php echo $popular_banner; ?>" alt=""></a>
+											<a href="#"><img src="<?php echo $popular_post['banner']; ?>" alt=""></a>
 										</div>
 									<?php endif; ?>
 
@@ -102,7 +102,7 @@ get_header();
 								<!-- Recent Post -->
 								<div id="recent" class="tab-pane fade">
 									<?php
-									$recent_banner = get_field('recent_banner', 'option');
+									$recent_post = get_field('recent_post', 'option');
 									$recent_query = new WP_Query([
 										'posts_per_page' => 3,
 										'post_type' => 'post',
@@ -111,9 +111,9 @@ get_header();
 									]);
 									?>
 
-									<?php if ($recent_banner): ?>
+									<?php if ($recent_post['banner']): ?>
 										<div class="sidebar-image mar-bottom-20 mar-top-20">
-											<a href="#"><img src="<?php echo $recent_banner; ?>" alt=""></a>
+											<a href="#"><img src="<?php echo $recent_post['banner']; ?>" alt=""></a>
 										</div>
 									<?php endif; ?>
 
