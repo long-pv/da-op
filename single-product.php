@@ -41,8 +41,8 @@ $banner_product = isset($product_setting['banner']) ? $product_setting['banner']
 			<h2 class="white"><?php the_title(); ?></h2>
 			<nav aria-label="breadcrumb">
 				<ul class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<li class="breadcrumb-item active" aria-current="page">About Us 1</li>
+					<li class="breadcrumb-item"><a href="<?php echo home_url(); ?>">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page"><?php the_title(); ?></li>
 				</ul>
 			</nav>
 		</div>
@@ -154,6 +154,37 @@ $banner_product = isset($product_setting['banner']) ? $product_setting['banner']
 					</div>
 				</div>
 				<!--  -->
+
+				<div id="store-tab-main" class="mar-top-60">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#1" data-toggle="tab">Description</a></li>
+						<li><a href="#2" data-toggle="tab">Additional Information</a></li>
+						<li><a href="#3" data-toggle="tab">Solution</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div class="tab-pane active" id="1">
+							<?php
+							$full_description = apply_filters('the_content', $product->get_description());
+							echo $full_description ?? '';
+							?>
+						</div>
+
+						<div class="tab-pane" id="2">
+							<?php
+							$additional_information = get_field('additional_information') ?? '';
+							echo $additional_information;
+							?>
+						</div>
+
+						<div class="tab-pane" id="3">
+							<?php
+							$solution = get_field('solution') ?? '';
+							echo $solution;
+							?>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="col-md-3 col-sm-12 col-xs-12 pad-left-30">
