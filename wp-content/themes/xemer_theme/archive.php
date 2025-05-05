@@ -25,11 +25,11 @@ $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
 <section class="breadcrumb-outer text-center">
 	<div class="container">
 		<div class="breadcrumb-content">
-			<h2 class="white">Blog Grid</h2>
+			<h2 class="white"><?php echo get_the_title(); ?></h2>
 			<nav aria-label="breadcrumb">
 				<ul class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<li class="breadcrumb-item active" aria-current="page">Blog Grid</li>
+					<li class="breadcrumb-item"><a href="<?php echo home_url(); ?>">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page"><?php echo get_the_title(); ?></li>
 				</ul>
 			</nav>
 		</div>
