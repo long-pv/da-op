@@ -38,7 +38,7 @@ $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
 </section>
 <!-- BreadCrumb Ends -->
 
-<!-- blog starts -->
+<!-- Blog starts -->
 <section class="blog blog-left">
 	<div class="container">
 		<div class="row">

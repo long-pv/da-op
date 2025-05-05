@@ -145,32 +145,4 @@ $post_date = get_the_date('d/m/Y');
             </div>
         </div>
     </div>
-
-    <!-- Phân trang -->
-    <div class="blog-next mar-bottom-30">
-        <?php
-        $prev_post = get_previous_post();
-        $next_post = get_next_post();
-        ?>
-
-        <?php if ($prev_post): ?>
-            <a href="<?php echo get_permalink($prev_post->ID); ?>" class="pull-left">
-                <div class="prev">
-                    <i class="fa fa-arrow-left white"></i>
-                    <p class="white">Previous Post</p>
-                    <p class="white"><?php echo esc_html(get_the_title($prev_post)); ?></p>
-                </div>
-            </a>
-        <?php endif; ?>
-
-        <?php if ($next_post): ?>
-            <a href="<?php echo get_permalink($next_post->ID); ?>" class="pull-right">
-                <div class="next">
-                    <i class="fa fa-arrow-right white"></i>
-                    <p class="white">Next Post</p>
-                    <p class="white"><?php echo esc_html(get_the_title($next_post)); ?></p>
-                </div>
-            </a>
-        <?php endif; ?>
-    </div>
 </div>
