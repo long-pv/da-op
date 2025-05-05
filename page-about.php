@@ -367,15 +367,6 @@ $tour_agent_items = isset($tour_agent['tour_agent_item']) ? $tour_agent['tour_ag
                                         </div>
                                     </div>
                                 <?php endif; ?>
-
-                                <div class="agent-social">
-                                    <ul class="social-links">
-                                        <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>

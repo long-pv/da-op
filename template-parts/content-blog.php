@@ -1,15 +1,20 @@
 <!-- Lấy thông tin một bài viết -->
 <?php
+// ID
 $post_id = get_the_ID();
-$post_title = get_the_title();
-$post_link = get_permalink();
-$share_link = get_permalink();
+
+// Ảnh - Thumbnail
 $post_thumb = get_the_post_thumbnail_url($post_id, 'full');
-$post_date = get_the_date('d/m/Y');
+
+// Tiêu đề - Title
+$post_title = get_the_title();
+
+// Đường dẫn - Link
+$share_link = get_permalink();
 
 // Danh mục - Category
-// $categories = get_the_category();
-// $category_name = !empty($categories) ? esc_html($categories[0]->name) : 'Chưa có danh mục';
+$categories = get_the_category();
+$category = !empty($categories) ? $categories[0] : 'Chưa có danh mục';
 ?>
 
 <div class="blog-single">
@@ -25,13 +30,10 @@ $post_date = get_the_date('d/m/Y');
         </h3>
 
         <div class="para-content pad-bottom-20">
-            <?php
-            $tags = get_the_tags();
-            if ($tags && !is_wp_error($tags)):
-                $first_tag = $tags[0]; ?>
+            <?php if ($category): ?>
                 <span class="mar-right-20">
-                    <a href="<?php echo esc_url(get_tag_link($first_tag->term_id)); ?>" class="tag">
-                        <i class="fa fa-tag mar-right-5"></i> <?php echo esc_html($first_tag->name); ?>
+                    <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>" class="tag">
+                        <i class="fa fa-tag mar-right-5"></i> <?php echo esc_html($category->name); ?>
                     </a>
                 </span>
             <?php endif; ?>
@@ -39,12 +41,6 @@ $post_date = get_the_date('d/m/Y');
             <span class="mar-right-20">
                 <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
                     <i class="fa fa-user mar-right-5"></i> <?php the_author(); ?>
-                </a>
-            </span>
-
-            <span>
-                <a href="<?php comments_link(); ?>">
-                    <i class="fa fa-comment"></i> <?php comments_number('0', '1', '%'); ?>
                 </a>
             </span>
         </div>
@@ -63,44 +59,31 @@ $post_date = get_the_date('d/m/Y');
                 <?php
                 $tags = get_the_tags();
                 if ($tags && !is_wp_error($tags)):
-                    foreach ($tags as $tag):
-                        ?>
-                        <li>
-                            <a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>">
-                                <?php echo esc_html($tag->name); ?>
-                            </a>
-                        </li>
-                        <?php
-                    endforeach;
-                else:
-                    echo '<li>—</li>'; // Không có tag
-                endif;
-                ?>
+                    $count = count($tags);
+                    $i = 0;
+                    ?>
+                    <?php foreach ($tags as $tag): ?>
+                        <a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>">
+                            <?php echo esc_html($tag->name); ?>         <?php echo (++$i < $count) ? ',' : ''; ?>
+                        </a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </ul>
         </div>
 
         <!-- Social -->
         <div class="header-social">
             <ul>
-                <li>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $share_link; ?>"
+                <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $share_link; ?>"
                         onclick="window.open(this.href, this.target, 'width=500,height=500'); return false;"
                         class="social_share_post_facebook">
                         <span class="social_share_post_icon">
-                            <i class="fab fa-facebook-f">
-
-                            </i>
+                            <i class="fab fa-facebook-f"> </i>
                         </span>
                     </a>
                 </li>
 
-                <li>
-                    <a href="mailto:?subject=Check this out&body=<?php echo rawurlencode($share_link); ?>">
-                        <span class="social_share_post_icon">
-                            <i class="fab fa-google-plus-g"></i>
-                        </span>
-                    </a>
-                </li>
+                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
 
                 <li>
                     <a href="https://twitter.com/home?status=<?php echo $share_link; ?>"
@@ -112,8 +95,7 @@ $post_date = get_the_date('d/m/Y');
                     </a>
                 </li>
 
-                <li>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $share_link; ?>&title=text"
+                <li> <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $share_link; ?>&title=text"
                         onclick="window.open(this.href, this.target, 'width=500,height=500'); return false;"
                         class="social_share_post_linkedin">
                         <span class="social_share_post_icon">

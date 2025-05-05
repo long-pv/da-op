@@ -55,7 +55,7 @@ $term_current = get_queried_object();
 								<div class="col-md-6 col-sm-6 col-xs-12 mar-bottom-30">
 									<div class="grid">
 										<div class="grid-item">
-											<div class="grid-image">
+											<div class="grid-image post__thumbnail">
 												<?php
 												if (has_post_thumbnail()):
 													the_post_thumbnail();
@@ -108,6 +108,7 @@ $term_current = get_queried_object();
 			<!-- sidebar starts -->
 			<div class="col-md-4 pad-right-30">
 				<div class="blog-sidebar">
+
 					<!-- Authors Start -->
 					<?php
 					$author = get_field('author_news', 'option');
@@ -124,7 +125,7 @@ $term_current = get_queried_object();
 					<div class="author-news mar-bottom-30" <?php if ($bg_image): ?>style="background-image: url('<?php echo $bg_image; ?>'); background-size: cover;" <?php endif; ?>>
 						<div class="author-news-content">
 							<?php if ($avatar): ?>
-								<div class="author-thumb">
+								<div class="author-thumb author__avatar">
 									<img src="<?php echo $avatar; ?>" alt="<?php echo esc_attr($name ?: 'Author'); ?>">
 								</div>
 							<?php endif; ?>
@@ -328,7 +329,7 @@ $term_current = get_queried_object();
 						$tags = get_tags([
 							'orderby' => 'name',
 							'order' => 'ASC',
-							'hide_empty' => false,
+							'hide_empty' => false, // Chỉ lấy tag có bài viết
 						]);
 
 						if ($tags): ?>
@@ -343,6 +344,7 @@ $term_current = get_queried_object();
 							</ul>
 						<?php endif; ?>
 					</div>
+					<!-- Tags End -->
 				</div>
 			</div>
 		</div>
