@@ -49,22 +49,30 @@ changed_files/
 .idea/
 
 # wp-content
-wp-content/wpo-cache/
-wp-content/advanced-cache.php
-wp-content/uploads/
-wp-content/languages/
-wp-content/plugins/*/*.txt
-wp-content/backups-dup-lite/
-wp-content/upgrade/
+# wp-content/wpo-cache/
+# wp-content/advanced-cache.php
+# wp-content/uploads/
+# wp-content/languages/
+# wp-content/plugins/*/*.txt
+# wp-content/backups-dup-lite/
+# wp-content/upgrade/
 # wp-content/themes/*/languages/
 # wp-content/themes/*/assets/css/
-wp-content/themes/*/js
-wp-content/themes/*/style-rtl.css
-wp-content/ai1wm-backups/
-wp-content/cache/
-wp-content/autoptimize_404_handler.php
-wp-content/upgrade-temp-backup
-!wp-content/themes/*/inc/export_pdf/*.lock
+# wp-content/themes/*/js
+# wp-content/themes/*/style-rtl.css
+# wp-content/ai1wm-backups/
+# wp-content/cache/
+# wp-content/autoptimize_404_handler.php
+# wp-content/upgrade-temp-backup
+# !wp-content/themes/*/inc/export_pdf/*.lock
+
+
+# Bỏ qua tất cả mọi thứ trong wp-content
+wp-content/*
+
+# Ngoại trừ thư mục theme/xemer_theme
+!wp-content/themes/xemer_theme/
+!wp-content/themes/xemer_theme/**
 
 # wp-content / theme
 # wp-content/themes/twentytwentyone
