@@ -13,6 +13,7 @@ get_header();
 <!-- Breadcrumb -->
 <?php
 $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
+$term_current = get_queried_object();
 ?>
 <style>
 	section.breadcrumb-outer:before {
@@ -25,11 +26,11 @@ $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
 <section class="breadcrumb-outer text-center">
 	<div class="container">
 		<div class="breadcrumb-content">
-			<h2 class="white"><?php echo get_the_title(); ?></h2>
+			<h2 class="white"><?php echo $term_current->name; ?></h2>
 			<nav aria-label="breadcrumb">
 				<ul class="breadcrumb">
 					<li class="breadcrumb-item"><a href="<?php echo home_url(); ?>">Home</a></li>
-					<li class="breadcrumb-item active" aria-current="page"><?php echo get_the_title(); ?></li>
+					<li class="breadcrumb-item active" aria-current="page"><?php echo $term_current->name; ?></li>
 				</ul>
 			</nav>
 		</div>
@@ -45,8 +46,8 @@ $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
 			<!-- Blog List -->
 			<div class="col-md-8 pad-left-30 pull-right">
 				<div class="blog-main">
-					<div class="row">
-						<?php if (have_posts()): ?>
+					<?php if (have_posts()): ?>
+						<div class="row">
 							<?php
 							/* Start the Loop */
 							while (have_posts()):
@@ -76,14 +77,29 @@ $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
 								</div>
 								<?php
 							endwhile;
-							the_posts_navigation();
-						endif;
-						?>
+							?>
+						</div>
+						<?php
+					endif;
+					?>
+				</div>
 
-						<div class="col-xs-12">
-							<div class="blog-button text-center">
-								<a href="blog-single.html" class="biz-btn biz-btn1">Load More</a>
-							</div>
+				<div class="d-flex justify-content-center" style="z-index: 9999;position:relative;">
+					<div class="col-md-12 tax-product_cat">
+						<div class="pagination-content text-center">
+							<ul class="pagination">
+								<?php
+								echo paginate_links(array(
+									'base' => get_pagenum_link(1) . '%_%',
+									'format' => 'page/%#%/',
+									'current' => max(1, get_query_var('paged')),
+									'total' => $wp_query->max_num_pages,
+									'type' => 'list',
+									'prev_text' => '&laquo;',
+									'next_text' => '&raquo;',
+								));
+								?>
+							</ul>
 						</div>
 					</div>
 				</div>
