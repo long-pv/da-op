@@ -172,7 +172,9 @@ if (!empty($section_banner_list_starts) && is_array($section_banner_list_starts)
                                         </div>
                                     <?php endif; ?>
                                     <a href="<?php the_permalink(); ?>">
-                                        <?php echo $product->get_image(); ?>
+                                        <?php
+                                        $image_id = $product->get_image_id();
+                                        echo wp_get_attachment_image( $image_id, 'medium' ); ?>
                                     </a>
                                 </div>
                                 <div class="shop-content">
@@ -244,7 +246,9 @@ if (!empty($section_banner_list_starts) && is_array($section_banner_list_starts)
                                             </div>
                                         <?php endif; ?>
                                         <a href="<?php the_permalink(); ?>">
-                                            <?php echo $product->get_image(); ?>
+                                            <?php
+                                            $image_id = $product->get_image_id();
+                                            echo wp_get_attachment_image( $image_id, 'medium' ); ?>
                                         </a>
                                     </div>
                                     <div class="shop-content">

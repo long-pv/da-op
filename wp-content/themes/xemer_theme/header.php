@@ -106,7 +106,7 @@
 									<a href="<?php echo home_url()?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Giới thiệu</a>
 								</li>
 								<li class="submenu dropdown">
-									<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sản phẩm <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+									<a href="<?php echo home_url('shop-list')?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sản phẩm <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
                                         <?php
                                         // Lấy danh mục sản phẩm của WooCommerce

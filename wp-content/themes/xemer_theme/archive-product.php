@@ -78,7 +78,12 @@ $image_url = wp_get_attachment_url($thumbnail_id); // Lấy URL ảnh
                                                 <span><?php echo round(100 - ($product->get_sale_price() / $product->get_regular_price()) * 100); ?>% OFF</span>
                                             </div>
                                         <?php endif; ?>
-                                        <a href="<?php the_permalink(); ?>"><?php echo $product->get_image(); ?></a>
+                                        <a href="<?php the_permalink(); ?>">
+                                            <?php
+                                            $image_id = $product->get_image_id();
+                                            echo wp_get_attachment_image( $image_id, 'medium' );
+                                            ?>
+                                        </a>
                                     </div>
                                     <div class="shop-content">
                                         <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
@@ -151,7 +156,10 @@ $image_url = wp_get_attachment_url($thumbnail_id); // Lấy URL ảnh
                                     <div class="recent-item clearfix display-flex">
                                         <div class="recent-image">
                                             <a href="<?php the_permalink(); ?>">
-                                                <?php echo $product->get_image(); ?>
+                                                <?php
+                                                $image_id = $product->get_image_id();
+                                                echo wp_get_attachment_image( $image_id, 'medium' );
+                                                ?>
                                             </a>
                                         </div>
                                         <div class="recent-content pad-left-15">
