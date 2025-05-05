@@ -82,7 +82,8 @@ $post_date = get_the_date('d/m/Y');
         <!-- Social -->
         <div class="header-social">
             <ul>
-                <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $share_link; ?>"
+                <li>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $share_link; ?>"
                         onclick="window.open(this.href, this.target, 'width=500,height=500'); return false;"
                         class="social_share_post_facebook">
                         <span class="social_share_post_icon">
@@ -93,7 +94,13 @@ $post_date = get_the_date('d/m/Y');
                     </a>
                 </li>
 
-                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                <li>
+                    <a href="mailto:?subject=Check this out&body=<?php echo rawurlencode($share_link); ?>">
+                        <span class="social_share_post_icon">
+                            <i class="fab fa-google-plus-g"></i>
+                        </span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="https://twitter.com/home?status=<?php echo $share_link; ?>"
@@ -105,7 +112,8 @@ $post_date = get_the_date('d/m/Y');
                     </a>
                 </li>
 
-                <li> <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $share_link; ?>&title=text"
+                <li>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $share_link; ?>&title=text"
                         onclick="window.open(this.href, this.target, 'width=500,height=500'); return false;"
                         class="social_share_post_linkedin">
                         <span class="social_share_post_icon">
