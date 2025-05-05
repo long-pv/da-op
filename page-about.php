@@ -35,8 +35,8 @@ $banner_cat = get_the_post_thumbnail(get_the_ID(), 'full', ['alt' => get_the_tit
             <h2 class="white"><?php the_title(); ?></h2>
             <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">About Us 1</li>
+                    <li class="breadcrumb-item"><a href="<?php echo home_url(); ?>">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?php the_title(); ?></li>
                 </ul>
             </nav>
         </div>
