@@ -1,8 +1,8 @@
 <?php
 /**
- * The template for displaying archive pages
+ * The template for displaying all single posts
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
  * @package xemer_theme
  */
@@ -10,85 +10,47 @@
 get_header();
 ?>
 
-<!-- Breadcrumb -->
-<?php
-$banner_cat = get_field('banner_image', get_queried_object()) ?? '';
-?>
-<style>
-	section.breadcrumb-outer:before {
-		background-image: url(<?php echo $banner_cat; ?>);
-		background-repeat: no-repeat;
-
-	}
-</style>
-
-<section class="breadcrumb-outer text-center">
-	<div class="container">
-		<div class="breadcrumb-content">
-			<h2 class="white">Blog Grid</h2>
-			<nav aria-label="breadcrumb">
-				<ul class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<li class="breadcrumb-item active" aria-current="page">Blog Grid</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-	<div class="overlay"></div>
-</section>
-<!-- BreadCrumb Ends -->
-
-<!-- blog starts -->
-<section class="blog blog-left">
+<section class="blogmain">
 	<div class="container">
 		<div class="row">
-			<!-- Blog List -->
-			<div class="col-md-8 pad-left-30 pull-right">
-				<div class="blog-main">
-					<div class="row">
-						<?php if (have_posts()): ?>
-							<?php
-							/* Start the Loop */
-							while (have_posts()):
-								the_post(); ?>
-								<div class="col-md-6 col-sm-6 col-xs-12 mar-bottom-30">
-									<div class="grid">
-										<div class="grid-item">
-											<div class="grid-image">
-												<?php
-												if (has_post_thumbnail()):
-													the_post_thumbnail();
-												endif;
-												?>
-											</div>
+			<div class="col-md-8 col-xs-12 pad-right-30">
+				<?php
+				while (have_posts()):
+					the_post();
 
-											<div class="gridblog-content">
-												<div class="date mar-bottom-15">
-													<i class="flaticon flaticon-calendar"></i>
-													<?php echo get_the_date(); ?>
-												</div>
-												<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-												<p><?php echo get_the_excerpt(); ?></p>
-												<a href="<?php the_permalink(); ?>" class="biz-btn biz-btn1">Read More</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<?php
-							endwhile;
-							the_posts_navigation();
-						endif;
-						?>
+					get_template_part('template-parts/content-blog', get_post_type());
 
-						<div class="col-xs-12">
-							<div class="blog-button text-center">
-								<a href="blog-single.html" class="biz-btn biz-btn1">Load More</a>
+				endwhile; // End of the loop.
+				?>
+				<!--  -->
+				<!-- Phân trang -->
+				<div class="blog-next mar-bottom-30">
+					<?php
+					$prev_post = get_previous_post();
+					$next_post = get_next_post();
+					?>
+
+					<?php if ($prev_post): ?>
+						<a href="<?php echo get_permalink($prev_post->ID); ?>" class="pull-left">
+							<div class="prev">
+								<i class="fa fa-arrow-left white"></i>
+								<p class="white">Previous Post</p>
+								<p class="white"><?php echo esc_html(get_the_title($prev_post)); ?></p>
 							</div>
-						</div>
-					</div>
+						</a>
+					<?php endif; ?>
+
+					<?php if ($next_post): ?>
+						<a href="<?php echo get_permalink($next_post->ID); ?>" class="pull-right">
+							<div class="next">
+								<i class="fa fa-arrow-right white"></i>
+								<p class="white">Next Post</p>
+								<p class="white"><?php echo esc_html(get_the_title($next_post)); ?></p>
+							</div>
+						</a>
+					<?php endif; ?>
 				</div>
 			</div>
-
 			<!-- sidebar starts -->
 			<div class="col-md-4 pad-right-30">
 				<div class="blog-sidebar">
@@ -233,7 +195,6 @@ $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
 		</div>
 	</div>
 </section>
-<!-- blog Ends -->
 
 <?php
 // get_sidebar();
