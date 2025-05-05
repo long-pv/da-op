@@ -92,6 +92,68 @@ $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
 			<!-- sidebar starts -->
 			<div class="col-md-4 pad-right-30">
 				<div class="blog-sidebar">
+					<!-- Authors Start -->
+					<?php
+					$author = get_field('author_news', 'option');
+					$bg_image = !empty($author['background_image']) ? esc_url($author['background_image']) : '';
+					$avatar = !empty($author['avatar']) ? esc_url($author['avatar']) : '';
+					$label = !empty($author['label']) ? esc_html($author['label']) : '';
+					$name = !empty($author['name']) ? esc_html($author['name']) : '';
+					$position = !empty($author['position']) ? esc_html($author['position']) : '';
+					$link_facebook = !empty($author['link_facebook']) ? esc_html($author['link_facebook']) : '';
+					$link_email = !empty($author['link_email']) ? esc_html($author['link_email']) : '';
+					$link_twitter = !empty($author['link_twitter']) ? esc_html($author['link_twitter']) : '';
+					?>
+
+					<div class="author-news mar-bottom-30" <?php if ($bg_image): ?>style="background-image: url('<?php echo $bg_image; ?>'); background-size: cover;" <?php endif; ?>>
+						<div class="author-news-content">
+							<?php if ($avatar): ?>
+								<div class="author-thumb">
+									<img src="<?php echo $avatar; ?>" alt="<?php echo esc_attr($name ?: 'Author'); ?>">
+								</div>
+							<?php endif; ?>
+							<div class="author-content">
+								<?php if ($label): ?>
+									<span><?php echo $label; ?></span>
+								<?php endif; ?>
+								<?php if ($name): ?>
+									<h4 class="title"><a href="#" class="white"><?php echo $name; ?></a></h4>
+								<?php endif; ?>
+								<?php if ($position): ?>
+									<p class="mar-0"><?php echo $position; ?></p>
+								<?php endif; ?>
+								<div class="header-social">
+									<ul>
+										<!-- Facebook -->
+										<li>
+											<a href="<?php echo $link_facebook; ?>"
+												onclick="window.open(this.href, this.target, 'width=500,height=500'); return false;"
+												class="social_share_post_facebook">
+												<i class="fab fa-facebook-f"> </i>
+											</a>
+										</li>
+										<!-- Gmail -->
+										<li>
+											<a href="mailto:<?php echo $link_email; ?>">
+												<i class="fab fa-google-plus-g"></i>
+											</a>
+										</li>
+										<!-- Twitter -->
+										<li>
+											<a href="<?php echo $link_twitter; ?>"
+												onclick="window.open(this.href, this.target, 'width=500,height=500'); return false;"
+												class="social_share_post_twitter">
+												<i class="fab fa-twitter"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="overlay"></div>
+					</div>
+					<!-- Authors End -->
+
 					<!-- Categories -->
 					<div class="sidebar-item">
 						<h3>All Categories</h3>
@@ -100,6 +162,7 @@ $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
 							$categories = get_categories([
 								'orderby' => 'name',
 								'order' => 'ASC',
+								'hide_empty' => false,
 							]);
 
 							foreach ($categories as $category):
@@ -206,6 +269,42 @@ $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
 						</div>
 					</div>
 
+					<!-- Recent Videos Start -->
+					<div class="sidebar-item">
+						<h3>Recent Videos</h3>
+						<div class="sidebar-videos about-slider">
+							<?php
+							$recent_video = get_field('recent_video', 'option');
+							$recent_videos = $recent_video['recent_video'];
+
+							if ($recent_videos && is_array($recent_videos)):
+								foreach ($recent_videos as $post):
+									setup_postdata($post);
+									?>
+									<article class="post mar-bottom-20">
+										<div class="content-image">
+											<a href="<?php the_permalink(); ?>">
+												<?php if (has_post_thumbnail()): ?>
+													<?php the_post_thumbnail('medium'); ?>
+												<?php endif; ?>
+											</a>
+										</div>
+										<div class="content-list mar-top-15">
+											<div class="date mar-bottom-5"><?php echo get_the_date(); ?></div>
+											<h4 class="mar-0">
+												<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+											</h4>
+										</div>
+									</article>
+									<?php
+								endforeach;
+								wp_reset_postdata();
+							endif;
+							?>
+						</div>
+					</div>
+					<!-- Recent Videos End-->
+
 					<!-- Tags -->
 					<div class="sidebar-item">
 						<h3>Tags</h3>
@@ -213,7 +312,7 @@ $banner_cat = get_field('banner_image', get_queried_object()) ?? '';
 						$tags = get_tags([
 							'orderby' => 'name',
 							'order' => 'ASC',
-							'hide_empty' => false, // Chỉ lấy tag có bài viết
+							'hide_empty' => false,
 						]);
 
 						if ($tags): ?>
