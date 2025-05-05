@@ -17,7 +17,7 @@ $column_3 = isset($setting_footer['column_3']) ? $setting_footer['column_3'] : '
 $copyright_text = isset($setting_footer['copyright_text']) ? $setting_footer['copyright_text'] : '';
 $menu = isset($setting_footer['menu']) ? $setting_footer['menu'] : '';
 ?>
-                              
+
 <!-- footer starts -->
 <footer>
     <div class="footer-upper pad-bottom-50">
