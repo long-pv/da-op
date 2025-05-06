@@ -103,12 +103,13 @@
 									<a href="<?php echo home_url()?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
 								</li>
 								<li class="submenu dropdown">
-									<a href="<?php echo home_url()?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Giới thiệu</a>
+									<a href="<?php echo get_field('gioi_thieu','option') ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Giới thiệu</a>
 								</li>
 								<li class="submenu dropdown">
-									<a href="<?php echo home_url('shop-list')?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sản phẩm <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+									<a href="<?php echo get_field('san_pham','option') ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sản phẩm <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
                                         <?php
+                                        echo '<li><a href="'.get_field('san_pham','option').'">'.esc_html('All').'</a></li>';
                                         // Lấy danh mục sản phẩm của WooCommerce
                                         $terms = get_terms(array(
                                             'taxonomy' => 'product_cat',
@@ -145,13 +146,13 @@
                                     </ul>
                                 </li>
 								<li class="submenu dropdown">
-									<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cam kết</i></a>
+									<a href="<?php echo get_field('cam_ket','option') ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cam kết</i></a>
 								</li>
 								<li class="submenu dropdown">
-									<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tin tức</a>
+									<a href="<?php echo get_field('tin_tuc','option') ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tin tức</a>
 								</li>
 								<li class="submenu dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Liên hệ</a>
+									<a href="<?php echo get_field('lien_he','option') ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Liên hệ</a>
 								</li>
 								<li class="dropdown">
 									<a href="#search1" class="mt_search"><i class="fa fa-search"></i></a>
