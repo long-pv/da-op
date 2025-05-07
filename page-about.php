@@ -310,7 +310,7 @@ $travel_counter_items = isset($travel_counter['travel_counter_item']) ? $travel_
 
                             <div class="counter-content">
                                 <?php if (!empty($travel_counter_item['travel_counter_count'])): ?>
-                                    <h3 class="boats"><?php echo esc_html($travel_counter_item['travel_counter_count']); ?></h3>
+                                    <h3 class=""><?php echo esc_html($travel_counter_item['travel_counter_count']); ?></h3>
                                 <?php endif; ?>
 
                                 <?php if (!empty($travel_counter_item['travel_counter_content'])): ?>
