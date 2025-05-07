@@ -3,23 +3,6 @@
     "title": "Setting page",
     "fields": [
         {
-            "key": "field_68196da18caa2",
-            "label": "Giới thiệu",
-            "name": "gioi_thieu",
-            "aria-label": "",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": ""
-        },
-        {
             "key": "field_68196e708caa3",
             "label": "Sản phẩm",
             "name": "san_pham",
@@ -106,5 +89,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1746497329
+    "modified": 1746617066
 }
